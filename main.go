@@ -88,8 +88,12 @@ func setNewBg(settings Settings, image string) {
 
 func interval(settings Settings, indx int) {
 	paths := loadImages(settings)
-	setNewBg(settings, paths[indx%len(paths)])
-	indx++
+	if len(paths) == 0 {
+		fmt.Println("No images found, please add at least 1")
+	} else {
+		setNewBg(settings, paths[indx%len(paths)])
+		indx++
+	}
 	time.Sleep(time.Duration(settings.Interval * int(time.Second)))
 	interval(settings, indx)
 	return
