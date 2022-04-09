@@ -5,7 +5,7 @@ import "os"
 func checkFiles() {
 	//write default config
 	if _, err := os.Stat("config.json"); err != nil {
-		os.WriteFile("config.json", []byte("{\n\t\"wintermsettings\": \"\",\n\t\"picspathfile\": \"backgrounds/pics.txt\",\n\t\"picsfolder\": \"backgrounds\",\n\t\"interval\": 60\n}"), 0644)
+		os.WriteFile("config.json", []byte("{\n\t\"wintermsettings\": \"\",\n\t\"picspathfile\": \"backgrounds/pics.txt\",\n\t\"picsfolder\": \"backgrounds\",\n\t\"interval\": 120\n}"), 0644)
 	}
 	settings := initialize()
 	if settings.PicsPathFile == "backgrounds/pics.txt" {
