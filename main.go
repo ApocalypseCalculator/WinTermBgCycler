@@ -32,6 +32,16 @@ func initialize() Settings {
 	return settings
 }
 
+func validImage(text string) bool {
+	lower := strings.ToLower(text)
+	if !strings.HasPrefix(lower, "&") && (strings.HasSuffix(lower, ".png") || strings.HasSuffix(lower, ".jpg") || strings.HasSuffix(lower, ".jpeg") || strings.HasSuffix(lower, ".webp")) {
+		if _, err := os.Stat(text); err == nil {
+			return true
+		}
+	}
+	return false
+}
+
 func loadImages(settings Settings) []string {
 	pathfile, err := os.Open(settings.PicsPathFile)
 	if err != nil {
@@ -43,11 +53,8 @@ func loadImages(settings Settings) []string {
 	paths := make([]string, 0)
 	for scanner.Scan() {
 		text := scanner.Text()
-		lower := strings.ToLower(text)
-		if !strings.HasPrefix(lower, "&") && (strings.HasSuffix(lower, ".png") || strings.HasSuffix(lower, ".jpg") || strings.HasSuffix(lower, ".jpeg") || strings.HasSuffix(lower, ".webp")) {
-			if _, err := os.Stat(text); err == nil {
-				paths = append(paths, text)
-			}
+		if validImage(text) {
+			paths = append(paths, text)
 		}
 	}
 	//fmt.Println("Successfully loaded pics path file")
