@@ -105,6 +105,7 @@ func interval(settings Settings, indx int) {
 }
 
 func main() {
+	fmt.Println(`cyclebg version `, version)
 	checkFiles()
 	settings := initialize()
 	interval(settings, rand.Intn(1000))
