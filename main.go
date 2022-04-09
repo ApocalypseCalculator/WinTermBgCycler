@@ -84,7 +84,7 @@ func setNewBg(settings Settings, image string) {
 	var result map[string]interface{}
 	_ = json.Unmarshal(byteValue, &result)
 	//POV: you are me and don't know how to write Go properly
-	for i, _ := range result["profiles"].(map[string]interface{})["list"].([]interface{}) {
+	for i := range result["profiles"].(map[string]interface{})["list"].([]interface{}) {
 		result["profiles"].(map[string]interface{})["list"].([]interface{})[i].(map[string]interface{})["backgroundImage"] = image
 	}
 	raw, _ := json.MarshalIndent(result, "", "\t")
