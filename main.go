@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"math/rand"
 	"os"
 	"strings"
 	"time"
@@ -91,6 +92,6 @@ func interval(settings Settings, indx int) {
 
 func main() {
 	settings := initialize()
-	interval(settings, 0)
+	interval(settings, rand.Intn(1000))
 	return
 }
