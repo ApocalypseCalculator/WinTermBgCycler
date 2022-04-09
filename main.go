@@ -71,6 +71,9 @@ func loadImages(settings Settings) []string {
 }
 
 func setNewBg(settings Settings, image string) {
+	if file, err := os.Stat(image); err == nil {
+		fmt.Println("Set new background as: ", file.Name())
+	}
 	defaultloc, _ := os.UserCacheDir()
 	if settings.WinTermSettings == "" {
 		defaultloc += "\\Packages\\Microsoft.WindowsTerminal_8wekyb3d8bbwe\\LocalState\\settings.json"
@@ -89,7 +92,6 @@ func setNewBg(settings Settings, image string) {
 	}
 	raw, _ := json.MarshalIndent(result, "", "\t")
 	os.WriteFile(defaultloc, raw, 0644)
-	fmt.Println("Set new background as ", image)
 }
 
 func interval(settings Settings, indx int) {
@@ -105,8 +107,9 @@ func interval(settings Settings, indx int) {
 }
 
 func main() {
-	fmt.Println(`cyclebg version `, version)
+	fmt.Println(`cyclebg version: `, version)
 	checkFiles()
+	fmt.Println("Starting...")
 	settings := initialize()
 	interval(settings, rand.Intn(1000))
 }
