@@ -7,6 +7,8 @@ import (
 	"io/ioutil"
 	"math/rand"
 	"os"
+	"path"
+	"path/filepath"
 	"strings"
 	"time"
 )
@@ -59,6 +61,14 @@ func loadImages(settings Settings) []string {
 		}
 	}
 	//fmt.Println("Successfully loaded pics path file")
+	folder, err2 := ioutil.ReadDir(settings.PicsFolder)
+	check(err2)
+	for _, file := range folder {
+		name, _ := filepath.Abs(path.Join(settings.PicsFolder, file.Name()))
+		if validImage(name) {
+			paths = append(paths, name)
+		}
+	}
 	return paths
 }
 
