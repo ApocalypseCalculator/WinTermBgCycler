@@ -34,7 +34,6 @@ func initialize() Settings {
 	byteValue, _ := ioutil.ReadAll(jsonFile)
 	settings := Settings{}
 	_ = json.Unmarshal(byteValue, &settings)
-	//fmt.Println("Successfully loaded config.json")
 	return settings
 }
 
@@ -60,7 +59,6 @@ func loadImages(settings Settings) []string {
 			paths = append(paths, text)
 		}
 	}
-	//fmt.Println("Successfully loaded pics path file")
 	folder, err2 := ioutil.ReadDir(settings.PicsFolder)
 	check(err2)
 	for _, file := range folder {
@@ -85,7 +83,6 @@ func setNewBg(settings Settings, image string) {
 	byteValue, _ := ioutil.ReadAll(jsonFile)
 	var result map[string]interface{}
 	_ = json.Unmarshal(byteValue, &result)
-	//fmt.Println("Successfully loaded Windows Terminal settings file")
 	//POV: you are me and don't know how to write Go properly
 	for i, _ := range result["profiles"].(map[string]interface{})["list"].([]interface{}) {
 		result["profiles"].(map[string]interface{})["list"].([]interface{})[i].(map[string]interface{})["backgroundImage"] = image
@@ -93,7 +90,6 @@ func setNewBg(settings Settings, image string) {
 	raw, _ := json.MarshalIndent(result, "", "\t")
 	os.WriteFile(defaultloc, raw, 0644)
 	fmt.Println("Set new background as ", image)
-	return
 }
 
 func interval(settings Settings, indx int) {
@@ -106,11 +102,10 @@ func interval(settings Settings, indx int) {
 	}
 	time.Sleep(time.Duration(settings.Interval * int(time.Second)))
 	interval(settings, indx)
-	return
 }
 
 func main() {
+	checkFiles()
 	settings := initialize()
 	interval(settings, rand.Intn(1000))
-	return
 }
