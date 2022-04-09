@@ -18,12 +18,16 @@ type Settings struct {
 	Interval        int    `json:"interval"`
 }
 
-func initialize() Settings {
-	jsonFile, err := os.Open("config.json")
+func check(err error) {
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
+}
+
+func initialize() Settings {
+	jsonFile, err := os.Open("config.json")
+	check(err)
 	defer jsonFile.Close()
 	byteValue, _ := ioutil.ReadAll(jsonFile)
 	settings := Settings{}
@@ -44,10 +48,7 @@ func validImage(text string) bool {
 
 func loadImages(settings Settings) []string {
 	pathfile, err := os.Open(settings.PicsPathFile)
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
+	check(err)
 	defer pathfile.Close()
 	scanner := bufio.NewScanner(pathfile)
 	paths := make([]string, 0)
@@ -69,10 +70,7 @@ func setNewBg(settings Settings, image string) {
 		defaultloc = settings.WinTermSettings
 	}
 	jsonFile, err := os.Open(defaultloc)
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
+	check(err)
 	defer jsonFile.Close()
 	byteValue, _ := ioutil.ReadAll(jsonFile)
 	var result map[string]interface{}
