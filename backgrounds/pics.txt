@@ -1,0 +1,3 @@
+& You can either place your pictures inside this folder or append the file path of the image to this file
+C:\Users\patri\Pictures\Backgrounds\Terminal\termbg.png
+C:\Users\patri\Pictures\Backgrounds\Terminal\termbg.jpg
