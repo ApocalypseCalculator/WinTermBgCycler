@@ -13,6 +13,7 @@ import (
 type Settings struct {
 	WinTermSettings string `json:"wintermsettings"`
 	PicsPathFile    string `json:"picspathfile"`
+	PicsFolder      string `json:"picsfolder"`
 	Interval        int    `json:"interval"`
 }
 
